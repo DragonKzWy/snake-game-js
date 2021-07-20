@@ -3,7 +3,7 @@
 <body onKeyDown="pegadirecao(event.keyCode);">
 
 <h2 align="center">Wesley Santos da Silva</h2>
-
+<h3 id="score" style="color: red; text-align:center; font-size:20px;"></h3>
 <div id=principal></div>
 <script>
     tabuleiro="<table align=center border=1>";
@@ -19,12 +19,14 @@
     mx=parseInt(Math.random()*10);
     my=parseInt(Math.random()*10);
     vivo=true;
+    pontos= 0; //Pontuação inicial
     function anda(){
         document.getElementById('td'+cobra[cobra.length-1][0]+'_'+cobra[cobra.length-1][1]).style.background="#ffffff";
         if(mx==cobra[cobra.length-1][0]&&my==cobra[cobra.length-1][1]){
             mx=parseInt(Math.random()*10);
             my=parseInt(Math.random()*10);
             cobra[cobra.length]=[10,10];
+            pontos=pontos +10; //incremento de pontuação por cada bloco comido pela cobra
         }
         for(x=cobra.length-1;x>0;x--){
             cobra[x][0]=cobra[x-1][0];
@@ -38,6 +40,8 @@
         if(cobra[0][0]<0||cobra[0][1]<0||cobra[0][0]>9||cobra[0][1]>9)vivo=false;
         document.getElementById('td'+cobra[0][0]+'_'+cobra[0][1]).style.background="#333333";
         document.getElementById('td'+mx+'_'+my).style.background="#ff3333";
+        document.getElementById('score').innerHTML='Pontuação: '+pontos;
+        
         if(vivo)setTimeout('anda()',300);
         else alert('Fim de jogo');
     }
